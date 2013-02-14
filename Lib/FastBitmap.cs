@@ -1,0 +1,88 @@
+using System;
+using System.Drawing;
+using System.Drawing.Imaging;
+
+namespace ImageEditor.Lib
+{
+    unsafe public class FastBitmap
+    {
+        private struct PixelData
+        {
+            public byte blue;
+            public byte green;
+            public byte red;
+            public byte alpha;
+        }
+
+        private Bitmap workingBitmap = null;
+        private int width = 0;
+        private BitmapData bitmapData = null;
+        private Byte* pBase = null;
+
+        public FastBitmap(Bitmap inputBitmap)
+        {
+            workingBitmap = inputBitmap;
+        }
+
+        public void LockImage()
+        {
+            Rectangle bounds = new Rectangle(Point.Empty, workingBitmap.Size);
+            width = (int)(bounds.Width * sizeof(PixelData));
+            if (width % 4 != 0) width = 4 * (width / 4 + 1);
+            bitmapData = workingBitmap.LockBits(bounds,
+                ImageLockMode.ReadWrite,
+                PixelFormat.Format32bppArgb
+            );
+            pBase = (Byte*)bitmapData.Scan0.ToPointer();
+        }
+
+        private PixelData* pixelData = null;
+
+        public Color GetPixel(int x, int y)
+        {
+            pixelData = (PixelData*)(pBase + y * width + x * sizeof(PixelData));
+            return Color.FromArgb(
+                pixelData->alpha,
+                pixelData->red,
+                pixelData->green,
+                pixelData->blue
+            );
+        }
+
+        public int GetPixelInt(int x, int y)
+        {
+            pixelData = (PixelData*)(pBase + y * width + x * sizeof(PixelData));
+            int rgb = pixelData->red;
+            rgb = (rgb << 8) + pixelData->green;
+            rgb = (rgb << 8) + pixelData->blue;
+            return rgb;
+        }
+
+
+        public void SetPixel(int x, int y, Color color)
+        {
+            PixelData* data = (PixelData*)(pBase + y * width + x * sizeof(PixelData));
+            data->alpha = color.A;
+            data->red = color.R;
+            data->green = color.G;
+            data->blue = color.B;
+        }
+
+        public void SetPixel(int x, int y, int rgb)
+        {
+            PixelData* data = (PixelData*)(pBase + y * width + x * sizeof(PixelData));
+            data->alpha = (byte)0;
+            data->red = (byte)((rgb >> 16) & 0xFF);
+            data->green = (byte)((rgb >> 8) & 0xFF);
+            data->blue = (byte)(rgb & 0xFF);
+
+        }
+
+        public void UnlockImage()
+        {
+            workingBitmap.UnlockBits(bitmapData);
+            bitmapData = null;
+            pBase = null;
+        }
+    }
+}
