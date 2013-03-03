@@ -1,20 +1,17 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace ImageEditor.ImageTransformations
 {
-    public class TF_Invert : Lib.TransformationBase, Lib.ITransformable
+    public class TfInvert : Lib.TransformationBase, Lib.ITransformable
     {
-        public TF_Invert()
+        public TfInvert()
         {
-            this.Name = "Invert";
+            Name = "Invert";
         }
 
         public Bitmap ApplyTransformation(Bitmap input)
         {
-            return Lib.ImageHelper.Transform(input, p => {
-                return Color.FromArgb((byte)~p.R, (byte)~p.G, (byte)~p.B);
-            });
+            return Lib.ImageHelper.Transform(input, p => Color.FromArgb((byte)~p.R, (byte)~p.G, (byte)~p.B));
         }
 
     }

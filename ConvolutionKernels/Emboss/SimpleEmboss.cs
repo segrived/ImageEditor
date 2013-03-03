@@ -1,11 +1,9 @@
-﻿using System;
-
-namespace ImageEditor.ConvolutionKernels.Emboss
+﻿namespace ImageEditor.ConvolutionKernels.Emboss
 {
     /// <summary>
     /// Фильтр свертки: эффект тиснения
     /// </summary>
-    public class CK_SimpleEmboss : ImageTransformations.IConvolutionKernel
+    public class CkSimpleEmboss : ImageTransformations.IConvolutionKernel
     {
         public const string _name = "Simple Emboss";
         public string Name { get { return _name; } }
@@ -14,7 +12,7 @@ namespace ImageEditor.ConvolutionKernels.Emboss
         public float Factor { get; set; }
         public float Offset { get; set; }
 
-        public CK_SimpleEmboss()
+        public CkSimpleEmboss()
         {
             Kernel = GetKernel();
             Factor = 1.0f;
@@ -23,10 +21,8 @@ namespace ImageEditor.ConvolutionKernels.Emboss
 
         private double[,] GetKernel()
         {
-            return new double[3, 3] {
-                { -1, -1, 0 },
-                { -1,  0, 1 },
-                {  0,  1, 1 }
+            return new double[,] {
+                { -1, -1, 5, -1, -1 }
             };
         }
     }

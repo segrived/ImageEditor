@@ -1,11 +1,9 @@
-﻿using System;
-
-namespace ImageEditor.ConvolutionKernels.EdgeDetection
+﻿namespace ImageEditor.ConvolutionKernels.EdgeDetection
 {
     /// <summary>
     /// Фильтр свертки: Простое обнаружение границ под углом 45 градусов
     /// </summary>
-    public class CK_SimpleEdgeDetection45 : ImageTransformations.IConvolutionKernel
+    public class CkSimpleEdgeDetection45 : ImageTransformations.IConvolutionKernel
     {
         public const string _name = "Simple Edge Detection (45°)";
         public string Name { get { return _name; } }
@@ -14,7 +12,7 @@ namespace ImageEditor.ConvolutionKernels.EdgeDetection
         public float Factor { get; set; }
         public float Offset { get; set; }
 
-        public CK_SimpleEdgeDetection45()
+        public CkSimpleEdgeDetection45()
         {
             Kernel = GetKernel();
             Factor = 1.0f;
@@ -23,7 +21,7 @@ namespace ImageEditor.ConvolutionKernels.EdgeDetection
 
         private double[,] GetKernel()
         {
-            return new double[5, 5] {
+            return new double[,] {
                 { -1,   0,  0,   0,   0 },
                 {  0,  -2,  0,   0,   0 },
                 {  0,   0,  6,   0,   0 },

@@ -51,6 +51,7 @@
     <Compile Include="AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ConvolutionKernels\Blur\LineBlur.cs" />
     <Compile Include="ConvolutionKernels\Blur\MotionBlur.cs" />
     <Compile Include="ConvolutionKernels\Blur\SimpleBlur.cs" />
     <Compile Include="ConvolutionKernels\EdgeDetection\SimpleEdgeDetection45.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="ImageTransformations\Invert.cs" />
     <Compile Include="ImageTransformations\Rotate.cs" />
     <Compile Include="ImageTransformations\Sepia.cs" />
+    <Compile Include="Lib\AttributeOption.cs" />
     <Compile Include="Lib\BitmapTransformation.cs" />
     <Compile Include="Lib\History.cs" />
     <Compile Include="ImageTransformations\ConvolutionFilter.cs" />
@@ -97,6 +99,12 @@
       <DependentUpon>ProgressForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TransformationOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TransformationOptions.Designer.cs">
+      <DependentUpon>TransformationOptions.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -121,6 +129,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="TransformationOptions.resx">
+      <DependentUpon>TransformationOptions.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

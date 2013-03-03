@@ -5,7 +5,7 @@ namespace ImageEditor.ConvolutionKernels.Sharpen
     /// <summary>
     /// Фильтр свертки: простое увеличений резкости
     /// </summary>
-    public class CK_SimpleSharpen : ImageTransformations.IConvolutionKernel
+    public class CkSimpleSharpen : ImageTransformations.IConvolutionKernel
     {
         public const string _name = "Simple Sharpen";
         public string Name { get { return _name; } }
@@ -14,7 +14,7 @@ namespace ImageEditor.ConvolutionKernels.Sharpen
         public float Factor { get; set; }
         public float Offset { get; set; }
 
-        public CK_SimpleSharpen()
+        public CkSimpleSharpen()
         {
             Kernel = GetKernel();
             Factor = 1.0f;
@@ -23,7 +23,7 @@ namespace ImageEditor.ConvolutionKernels.Sharpen
 
         private double[,] GetKernel()
         {
-            return new double[3, 3] {
+            return new double[,] {
                 { -1, -1, -1 },
                 { -1,  9, -1 },
                 { -1, -1, -1 }

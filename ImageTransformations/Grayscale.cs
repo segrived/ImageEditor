@@ -1,13 +1,12 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace ImageEditor.ImageTransformations
 {
-    public class TF_Grayscale : Lib.TransformationBase, Lib.ITransformable
+    public class TfGrayscale : Lib.TransformationBase, Lib.ITransformable
     {
 
-        public TF_Grayscale() {
-            this.Name = "Greyscale";
+        public TfGrayscale() {
+            Name = "Grayscale";
         }
 
         public Bitmap ApplyTransformation(Bitmap input)

@@ -13,17 +13,17 @@ namespace ImageEditor.ImageTransformations
         string Name { get; }
     }
 
-    public class TF_ConvolutionFilter : Lib.TransformationBase, Lib.ITransformable, Lib.IProgressTracking
+    internal class TfConvolutionFilter : TransformationBase, ITransformable, IProgressTracking
     {
         /// <summary>
         /// Используемый фильтр свертки
         /// </summary>
-        private IConvolutionKernel ConvKernel;
+        private readonly IConvolutionKernel _convKernel;
 
-        public TF_ConvolutionFilter(IConvolutionKernel kernel)
+        public TfConvolutionFilter(IConvolutionKernel kernel)
         {
-            this.Name = "CF: {0}".F(kernel.Name);
-            this.ConvKernel = kernel;
+            Name = "CF: {0}".F(kernel.Name);
+            _convKernel = kernel;
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace ImageEditor.ImageTransformations
         /// <returns></returns>
         public override string ToString()
         {
-            return "{0}".F(ConvKernel.Name);
+            return "{0}".F(_convKernel.Name);
         }
 
         /// <summary>
@@ -52,20 +52,20 @@ namespace ImageEditor.ImageTransformations
 
             // Клонирование исходного изображения и создание нового для
             // резултатирующего изображения
-            Bitmap inputImage = (Bitmap)bitmap.Clone();
-            Bitmap newImage = new Bitmap(imageWidth, imageHeight);
+            var inputImage = (Bitmap)bitmap.Clone();
+            var newImage = new Bitmap(imageWidth, imageHeight);
             // Блокировка изображений (чтобы можно было работать напрямую
             // с изображениями в памяти)
-            FastBitmap inputProcessor = new FastBitmap(inputImage);
-            FastBitmap outputProcessor = new FastBitmap(newImage);
+            var inputProcessor = new FastBitmap(inputImage);
+            var outputProcessor = new FastBitmap(newImage);
             inputProcessor.LockImage(); outputProcessor.LockImage();
 
             // Размер ядра свертки
-            int filterWidth = ConvKernel.Kernel.GetLength(0);
-            int filterHeight = ConvKernel.Kernel.GetLength(1);
+            int filterWidth = _convKernel.Kernel.GetLength(0);
+            int filterHeight = _convKernel.Kernel.GetLength(1);
             // Размер половины ядра свертки (для определния обрабатываемого пиксела)
-            int fwd2 = (int)(filterWidth / 2);
-            int fhd2 = (int)(filterHeight / 2);
+            var fwd2 = filterWidth / 2;
+            var fhd2 = filterHeight / 2;
 
             int previousProgress = 0;
             for (int x = 0; x < imageWidth; x++) {
@@ -81,7 +81,7 @@ namespace ImageEditor.ImageTransformations
                             int iy = (y - fhd2 + fy + imageHeight) % imageHeight;
 
                             // Текущее значение ядра фильтра свертки
-                            var cKernel = ConvKernel.Kernel[fx, fy];
+                            var cKernel = _convKernel.Kernel[fx, fy];
 
                             // Получать значение цвета каждого пиксела через структуру конечно
                             // удобно, но очень медленно. Поэтому забираю его как Int и
@@ -93,7 +93,7 @@ namespace ImageEditor.ImageTransformations
                         }
                     }
                     // Прогресс можно принимать значения от 1 до 100. Проверяем текущий прогресс
-                    int currentProgress = (int)((x * imageHeight + y) / (float)fullImageSize * 100);
+                    var currentProgress = (int)((x * imageHeight + y) / (float)fullImageSize * 100);
                     // Если он превышает значение предыдущего сохранённого - вызывается действие
                     if (currentProgress > previousProgress) {
                         OnProgressChanged(new ProgressEventArgs {
@@ -103,9 +103,9 @@ namespace ImageEditor.ImageTransformations
                     }
                     // Устанавливается нового цвета для пиксела
                     var newColor = Color.FromArgb(
-                        (byte)ImageHelper.NormComp((int)(ConvKernel.Factor * cr + ConvKernel.Offset)),
-                        (byte)ImageHelper.NormComp((int)(ConvKernel.Factor * cg + ConvKernel.Offset)),
-                        (byte)ImageHelper.NormComp((int)(ConvKernel.Factor * cb + ConvKernel.Offset))
+                        (byte)ImageHelper.NormComp((int)(_convKernel.Factor * cr + _convKernel.Offset)),
+                        (byte)ImageHelper.NormComp((int)(_convKernel.Factor * cg + _convKernel.Offset)),
+                        (byte)ImageHelper.NormComp((int)(_convKernel.Factor * cb + _convKernel.Offset))
                     );
                     outputProcessor.SetPixel(x, y, newColor);
                 }

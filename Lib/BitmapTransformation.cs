@@ -32,6 +32,10 @@ namespace ImageEditor.Lib
         event EventHandler<EventArgs> OperationComplete;
     }
 
+    public interface IСonfigurable
+    {
+    }
+
     public class BitmapTransformation
     {
         private ITransformable Transformation { get; set; }

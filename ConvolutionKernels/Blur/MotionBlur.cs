@@ -1,11 +1,9 @@
-﻿using System;
-
-namespace ImageEditor.ConvolutionKernels.Blur
+﻿namespace ImageEditor.ConvolutionKernels.Blur
 {
     /// <summary>
     /// Фильтр свертки: размытие в движении
     /// </summary>
-    public class CK_MotionBlur : ImageTransformations.IConvolutionKernel
+    public class CkMotionBlur : ImageTransformations.IConvolutionKernel
     {
         public const string _name = "Motion Blur";
         public string Name { get { return _name; } }
@@ -16,12 +14,12 @@ namespace ImageEditor.ConvolutionKernels.Blur
 
         private int BlurRadius { get; set; }
 
-        public CK_MotionBlur(int radius)
+        public CkMotionBlur(int radius)
         {
-            this.BlurRadius = radius;
-            this.Kernel = GetKernel();
-            this.Factor = 1.0f / (float)radius;
-            this.Offset = 1.0f;
+            BlurRadius = radius;
+            Kernel = GetKernel();
+            Factor = 1.0f / radius;
+            Offset = 1.0f;
         }
 
         public double[,] GetKernel()

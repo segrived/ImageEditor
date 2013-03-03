@@ -140,26 +140,26 @@
             // MenuEditUndo
             // 
             this.MenuEditUndo.Name = "MenuEditUndo";
-            this.MenuEditUndo.Size = new System.Drawing.Size(135, 22);
+            this.MenuEditUndo.Size = new System.Drawing.Size(152, 22);
             this.MenuEditUndo.Text = "Undo";
             this.MenuEditUndo.Click += new System.EventHandler(this.MenuEditUndo_Click);
             // 
             // MenuEditRedo
             // 
             this.MenuEditRedo.Name = "MenuEditRedo";
-            this.MenuEditRedo.Size = new System.Drawing.Size(135, 22);
+            this.MenuEditRedo.Size = new System.Drawing.Size(152, 22);
             this.MenuEditRedo.Text = "Redo";
             this.MenuEditRedo.Click += new System.EventHandler(this.MenuEditRedo_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(132, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
             // 
             // MenuEditPreferences
             // 
             this.MenuEditPreferences.Name = "MenuEditPreferences";
-            this.MenuEditPreferences.Size = new System.Drawing.Size(135, 22);
+            this.MenuEditPreferences.Size = new System.Drawing.Size(152, 22);
             this.MenuEditPreferences.Text = "Preferences";
             this.MenuEditPreferences.Click += new System.EventHandler(this.MenuEditPreferences_Click);
             // 
@@ -178,7 +178,7 @@
             this.MenuViewSizeModeStretch,
             this.MenuViewSizeModeZoom});
             this.MenuViewSizeMode.Name = "MenuViewSizeMode";
-            this.MenuViewSizeMode.Size = new System.Drawing.Size(152, 22);
+            this.MenuViewSizeMode.Size = new System.Drawing.Size(128, 22);
             this.MenuViewSizeMode.Text = "Size Mode";
             // 
             // MenuViewSizeModeDefault
@@ -186,21 +186,21 @@
             this.MenuViewSizeModeDefault.Checked = true;
             this.MenuViewSizeModeDefault.CheckState = System.Windows.Forms.CheckState.Checked;
             this.MenuViewSizeModeDefault.Name = "MenuViewSizeModeDefault";
-            this.MenuViewSizeModeDefault.Size = new System.Drawing.Size(152, 22);
+            this.MenuViewSizeModeDefault.Size = new System.Drawing.Size(112, 22);
             this.MenuViewSizeModeDefault.Text = "Default";
             this.MenuViewSizeModeDefault.Click += new System.EventHandler(this.MenuViewSizeModeDefault_Click);
             // 
             // MenuViewSizeModeStretch
             // 
             this.MenuViewSizeModeStretch.Name = "MenuViewSizeModeStretch";
-            this.MenuViewSizeModeStretch.Size = new System.Drawing.Size(152, 22);
+            this.MenuViewSizeModeStretch.Size = new System.Drawing.Size(112, 22);
             this.MenuViewSizeModeStretch.Text = "Stretch";
             this.MenuViewSizeModeStretch.Click += new System.EventHandler(this.MenuViewSizeModeStretch_Click);
             // 
             // MenuViewSizeModeZoom
             // 
             this.MenuViewSizeModeZoom.Name = "MenuViewSizeModeZoom";
-            this.MenuViewSizeModeZoom.Size = new System.Drawing.Size(152, 22);
+            this.MenuViewSizeModeZoom.Size = new System.Drawing.Size(112, 22);
             this.MenuViewSizeModeZoom.Text = "Zoom";
             this.MenuViewSizeModeZoom.Click += new System.EventHandler(this.MenuViewSizeModeZoom_Click);
             // 

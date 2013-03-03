@@ -54,6 +54,20 @@ namespace ImageEditor.Lib
             });
         }
 
+        public static Bitmap TransformX(Bitmap InputBitmap, Func<int, int, Color> pixelTransform)
+        {
+            var width = InputBitmap.Width;
+            var height = InputBitmap.Height;
+            return FastPixel(InputBitmap, (i, o) => {
+                for (int x = 0; x < width; x++) {
+                    for (int y = 0; y < height; y++) {
+                        var newPixel = pixelTransform(x, y);
+                        o.SetPixel(x, y, newPixel);
+                    }
+                }
+            });
+        }
+
         public static Bitmap FastPixel(Bitmap InputBitmap, Action<FastBitmap, FastBitmap> processors)
         {
             Bitmap newImage = new Bitmap(InputBitmap.Width, InputBitmap.Height);

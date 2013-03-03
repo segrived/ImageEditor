@@ -1,49 +1,48 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace ImageEditor.ImageTransformations
 {
     public enum RotateType
     {
-        CLOCKWISE, COUNTERCLOCKWISE, A180
+        Clockwise, Counterclockwise, A180
     }
 
-    public class TF_Rotate : Lib.TransformationBase, Lib.ITransformable
+    public class TfRotate : Lib.TransformationBase, Lib.ITransformable
     {
-        private RotateType Rotate;
+        private readonly RotateType _rotate;
 
-        public TF_Rotate(RotateType type)
+        public TfRotate(RotateType type)
         {
-            this.Name = "Rotate";
-            this.Rotate = type;
+            Name = "Rotate";
+            _rotate = type;
         }
 
         public Bitmap ApplyTransformation(Bitmap input)
         {
             var width = input.Width;
             var height = input.Height;
-            Bitmap newImage = (Rotate == RotateType.A180)
+            Bitmap newImage = (_rotate == RotateType.A180)
                 ? new Bitmap(width, height)
                 : new Bitmap(height, width);
-            var InputProcessor = new Lib.FastBitmap(input);
-            var OutputProcessor = new Lib.FastBitmap(newImage);
-            InputProcessor.LockImage();
-            OutputProcessor.LockImage();
+            var inputProcessor = new Lib.FastBitmap(input);
+            var outputProcessor = new Lib.FastBitmap(newImage);
+            inputProcessor.LockImage();
+            outputProcessor.LockImage();
             for (int x = 0; x < width; x++) {
                 for (int y = 0; y < height; y++) {
-                    var old = InputProcessor.GetPixel(x, y);
-                    switch (Rotate) {
-                        case RotateType.CLOCKWISE:
-                            OutputProcessor.SetPixel(height - y - 1, x, old); break;
-                        case RotateType.COUNTERCLOCKWISE:
-                            OutputProcessor.SetPixel(y, width - x - 1, old); break;
+                    var old = inputProcessor.GetPixel(x, y);
+                    switch (_rotate) {
+                        case RotateType.Clockwise:
+                            outputProcessor.SetPixel(height - y - 1, x, old); break;
+                        case RotateType.Counterclockwise:
+                            outputProcessor.SetPixel(y, width - x - 1, old); break;
                         case RotateType.A180:
-                            OutputProcessor.SetPixel(width - x - 1, height - y - 1, old); break;
+                            outputProcessor.SetPixel(width - x - 1, height - y - 1, old); break;
                     }
                 }
             }
-            InputProcessor.UnlockImage();
-            OutputProcessor.UnlockImage();
+            inputProcessor.UnlockImage();
+            outputProcessor.UnlockImage();
             return newImage;
         }
     }

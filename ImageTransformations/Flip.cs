@@ -1,18 +1,17 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace ImageEditor.ImageTransformations
 {
-    public enum FlipType { VERTICAL, HORIZONTAL }
+    public enum FlipType { Vertical, Horizontal }
 
-    public class TF_Flip : Lib.TransformationBase, Lib.ITransformable
+    public class TfFlip : Lib.TransformationBase, Lib.ITransformable
     {
-        private FlipType Flip;
+        private readonly FlipType _flip;
 
-        public TF_Flip(FlipType type)
+        public TfFlip(FlipType type)
         {
-            this.Name = "Flip";
-            this.Flip = type;
+            Name = "Flip";
+            _flip = type;
         }
 
         public Bitmap ApplyTransformation(Bitmap input)
@@ -22,7 +21,7 @@ namespace ImageEditor.ImageTransformations
             return Lib.ImageHelper.FastPixel(input, (i, o) => {
                 for (int x = 0; x < width; x++) {
                     for (int y = 0; y < height; y++) {
-                        var newPixel = (Flip == FlipType.HORIZONTAL)
+                        var newPixel = (_flip == FlipType.Horizontal)
                             ? i.GetPixel(width - x - 1, y)
                             : i.GetPixel(x, height - y - 1);
                         o.SetPixel(x, y, newPixel);

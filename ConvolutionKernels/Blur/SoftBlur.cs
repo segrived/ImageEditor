@@ -5,7 +5,7 @@ namespace ImageEditor.ConvolutionKernels.Blur
     /// <summary>
     /// Фильтр свертки: "мягкое" размытие
     /// </summary>
-    public class CK_SoftBlur : ImageTransformations.IConvolutionKernel
+    public class CkSoftBlur : ImageTransformations.IConvolutionKernel
     {
         public const string _name = "Soft Blur";
         public string Name { get { return _name; } }
@@ -16,12 +16,12 @@ namespace ImageEditor.ConvolutionKernels.Blur
 
         private int BlurRadius { get; set; }
 
-        public CK_SoftBlur(int radius)
+        public CkSoftBlur(int radius)
         {
-            this.BlurRadius = radius;
-            this.Kernel = GetMatrix();
-            this.Factor = 1.0f;
-            this.Offset = 1.0f;
+            BlurRadius = radius;
+            Kernel = GetMatrix();
+            Factor = 1.0f;
+            Offset = 1.0f;
         }
 
         public string GetName()
@@ -31,7 +31,7 @@ namespace ImageEditor.ConvolutionKernels.Blur
 
         private double[,] GetMatrix()
         {
-            double[,] kernel = new double[BlurRadius, BlurRadius];
+            var kernel = new double[BlurRadius, BlurRadius];
             int radius = BlurRadius / 2;
             double a = -2.0 * radius * radius / Math.Log(0.01);
             double sum = 0.0;

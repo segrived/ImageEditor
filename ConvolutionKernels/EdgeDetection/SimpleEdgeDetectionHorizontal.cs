@@ -1,11 +1,9 @@
-﻿using System;
-
-namespace ImageEditor.ConvolutionKernels.EdgeDetection
+﻿namespace ImageEditor.ConvolutionKernels.EdgeDetection
 {
     /// <summary>
     /// Фильтр свертки: Простое обнаружение границ по горизонтали
     /// </summary>
-    public class CK_SimpleEdgeDetectionHorizontal : ImageTransformations.IConvolutionKernel
+    public class CkSimpleEdgeDetectionHorizontal : ImageTransformations.IConvolutionKernel
     {
         public const string _name = "Simple Edge Detection (Horizontal)";
         public string Name { get { return _name; } }
@@ -14,7 +12,7 @@ namespace ImageEditor.ConvolutionKernels.EdgeDetection
         public float Factor { get; set; }
         public float Offset { get; set; }
 
-        public CK_SimpleEdgeDetectionHorizontal()
+        public CkSimpleEdgeDetectionHorizontal()
         {
             Kernel = GetKernel();
             Factor = 1.0f;
@@ -23,7 +21,7 @@ namespace ImageEditor.ConvolutionKernels.EdgeDetection
 
         private double[,] GetKernel()
         {
-            return new double[5, 5]  {
+            return new double[,]  {
                 {  0,   0,  0,  0,  0 },
                 {  0,   0,  0,  0,  0 },
                 { -1,  -1,  2,  0,  0 },

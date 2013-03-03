@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Drawing;
+using ImageEditor.Lib;
 
 namespace ImageEditor.ImageTransformations
 {
-    public class TF_Sepia : Lib.TransformationBase, Lib.ITransformable
+    public class TfSepia : TransformationBase, ITransformable, IСonfigurable
     {
+        [OptionAttribute(min: 1, max: 50, step: 1)]
         public int Depth { get; set; }
 
-        public TF_Sepia(int depth)
+        public TfSepia(int depth)
         {
             this.Name = "Sepia";
             this.Depth = depth;

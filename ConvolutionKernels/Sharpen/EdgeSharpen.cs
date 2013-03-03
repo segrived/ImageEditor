@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ImageEditor.ConvolutionKernels.Sharpen
+﻿namespace ImageEditor.ConvolutionKernels.Sharpen
 {
     /// <summary>
     /// Фильтр свертки: увеличений резкости с упором на границы изображения
     /// </summary>
-    public class CK_EdgeSharpen : ImageTransformations.IConvolutionKernel
+    public class CkEdgeSharpen : ImageTransformations.IConvolutionKernel
     {
         public const string _name = "Edge Sharpen";
         public string Name { get { return _name; } }
@@ -18,7 +12,7 @@ namespace ImageEditor.ConvolutionKernels.Sharpen
         public float Factor { get; set; }
         public float Offset { get; set; }
 
-        public CK_EdgeSharpen()
+        public CkEdgeSharpen()
         {
             Kernel = GetKernel();
             Factor = 1.0f;
@@ -27,10 +21,10 @@ namespace ImageEditor.ConvolutionKernels.Sharpen
 
         private double[,] GetKernel()
         {
-            return new double[3, 3] {
+            return new double[,] {
                 {1,  1, 1},
                 {1, -7, 1},
-                {1,  1, 1},
+                {1,  1, 1}
             };
         }
     }
